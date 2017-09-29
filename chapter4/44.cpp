@@ -3,9 +3,7 @@
 using std::cout;
 using std::endl;
 
-
-
-const char MAX = 255;
+const int MAX = 255;
 
 //in this string the first value represents the length and the string has no null terminator! :O
 typedef char * arrayString;
@@ -15,30 +13,37 @@ typedef char * arrayString;
 //characterAt
 //output
 
-void append(arrayString str, char c);
+void append(arrayString& str, char c);
 void concatenate(arrayString& s1, arrayString s2);
 char characterAt(arrayString str, int n);
 void output(arrayString str);
 
 int main() {
     //testing
-    arrayString str1 = new char[6]{5, 'h', 'e', 'l', 'l', 'o'}; 
-    arrayString str2 = new char[6]{5, 'w', 'o', 'r', 'l', 'd'}; 
+    arrayString str1 = new char[6];
+    str1[0] = 5; str1[1] = 'h', str1[2] = 'e'; str1[3] = 'l'; str1[4] = 'l'; str1[5] = 'o'; 
+    arrayString str2 = new char[6];
+    str2[0] = 5; str2[1] = 'w'; str2[2] = 'o'; str2[3] = 'r'; str2[4] = 'l'; str2[5] = 'd'; 
     output(str1); 
     output(str2); 
+    append(str1, 'x');
+    output(str1); 
+    cout << "character 6 should be x: " << characterAt(str1, 5) << endl;
+    concatenate(str1, str2);
+    output(str1);
     return 0;
 }
 
 
 void append(arrayString&  str, char c) {
     //max str len
-    if(str[0] == MAX) {
+    if((int)str[0] == MAX) {
         return;
     }
     arrayString newS = new char[str[0]+1];
     newS[0] = str[0]+1;
     for(int i = 1; i <= str[0]; i++) {
-        newS[i] = str[0];
+        newS[i] = str[i];
     }
     newS[newS[0]] = c;
     delete[] str;
